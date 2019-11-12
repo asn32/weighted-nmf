@@ -30,7 +30,7 @@ $ python3 setup.py install --user
 ## Usage
 `wNMF` is a python library that can be imported.
 ```python
-import wNMF
+from wNMF import wNMF
 ```
 And it can be used like an `sklearn.decomposition` model. 
 

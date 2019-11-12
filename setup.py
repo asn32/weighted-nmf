@@ -13,7 +13,7 @@ with open(readme_path, 'r') as f:
 
 setuptools.setup(
             name='wNMF',
-            version='0.0.3',
+            version='0.0.4',
             long_description=readme,
             description='wNMF: weighted Non-Negative matrix Factorization',
             long_description_content_type='text/markdown',
