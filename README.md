@@ -9,11 +9,11 @@ More information about the modified multiplicative update algorithim utilized ca
 `wNMF` specifically implements solutions for determining the decomposed matrices U and V when minimizing the Frobenius Norm:
 
 
-![equation1](http://www.sciweavers.org/tex2img.php?eq=%5Cfrac%7B1%7D%7B2%7D%20%5C%7C%20X%20-%20UV%20%5C%7C%5E%7B2%7D_W%20%3D%20%5Cfrac%7B1%7D%7B2%7D%5Csum_%7Bij%7D%5E%7B%7D%20%28%20W%20%5Codot%20%28X%20-%20UV%29%20%5Codot%20%28X-UV%29%29_%7Bij%7D&bc=White&fc=Black&im=jpg&fs=18&ff=modern&edit=)
+![equation](http://www.sciweavers.org/tex2img.php?eq=%5Cfrac%7B1%7D%7B2%7D%20%5C%7C%20X%20-%20UV%20%5C%7C%5E%7B2%7D_W%20%3D%20%5Cfrac%7B1%7D%7B2%7D%5Csum_%7Bij%7D%5E%7B%7D%20%28%20W%20%5Codot%20%28X%20-%20UV%29%20%5Codot%20%28X-UV%29%29_%7Bij%7D&bc=White&fc=Black&im=jpg&fs=18&ff=modern&edit=)
 
 or the Kullback-Leibler Divergence:
 
-![equation2](http://www.sciweavers.org/tex2img.php?eq=D%28X%20%20%5Cparallel%20UV%29%20%3D%20%5Csum_%7Bij%7D%5E%7B%7D%20%28%20X%20%5Codot%20%5Clog%5Cfrac%7BX%7D%7BUV%7D%20-%20X%20%2B%20UV%29_%7Bij%7D&bc=White&fc=Black&im=jpg&fs=18&ff=modern&edit=)
+![equation](http://www.sciweavers.org/tex2img.php?eq=D%28X%20%20%5Cparallel%20UV%29%20%3D%20%5Csum_%7Bij%7D%5E%7B%7D%20%28%20X%20%5Codot%20%5Clog%5Cfrac%7BX%7D%7BUV%7D%20-%20X%20%2B%20UV%29_%7Bij%7D&bc=White&fc=Black&im=jpg&fs=18&ff=modern&edit=)
 
 
 ** Useful Links **
