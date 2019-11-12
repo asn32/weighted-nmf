@@ -1,1 +1,1 @@
-from .wNMf import wNMF
+from .wNMF import wNMF
