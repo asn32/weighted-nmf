@@ -1,4 +1,4 @@
-# Weighted Non-Negative Matrix Factorization
+# wNMF: Weighted Non-Negative Matrix Factorization
 
 ## About
 `wNMF` implements a simple version of Non-Negative Matrix Factorization (NMF) that utilizes a weight matrix to weight the importance of each feature in each sample of the data matrix to be factorized.
