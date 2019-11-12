@@ -1,7 +1,9 @@
 # Weighted Non-Negative Matrix Factorization
 
 ## About
-`wNMF` implements a simple version of Non-Negative Matrix Factorization (NMF) that utilizes a weight matrix to weight the importance of each feature in each sample of the data matrix to be factorized. It mimics the `sklearn` model API, as well as allows access to results from multiple optimization runs.  
+`wNMF` implements a simple version of Non-Negative Matrix Factorization (NMF) that utilizes a weight matrix to weight the importance of each feature in each sample of the data matrix to be factorized.
+
+`wNMF` is easy to use, because it behaves like an `sklearn.decomposition` model, but also allows for multiple fitting attempts.
 
 More information about the modified multiplicative update algorithim utilized can be found here:
 [Blondel, Vincent & Ho, Ngoc-Diep & Van Dooren, Paul. (2007). Weighted Nonnegative Matrix Factorization and Face Feature Extraction](https://pdfs.semanticscholar.org/e20e/98642009f13686a540c193fdbce2d509c3b8.pdf) 
@@ -20,9 +22,9 @@ $ pip install wNMF
 
 Alternatively, download the source from [github](https://github.com/asn32/weighted-nmf) and install:
 ```bash
-$ git clone https://github.com/asn32/weighted-nmf
+$ git clone https://github.com/asn32/weighted-nmf.git
 $ cd weighted-nmf
-$ pip install .
+$ python3 setup.py install --user
 ```
 
 ## Usage
@@ -30,14 +32,12 @@ $ pip install .
 ```python
 import wNMF
 ```
-And the main functionality is implemented to mimic using an `sklearn.decomposition` model. 
+And it can be used like an `sklearn.decomposition` model. 
 
-First create an instance of the `wNMF` model setting the number of components, then fit the model to the data using the instance methods `wNMF().fit` or `wNMF().fit_transform`.
-Parameters such as the maximum number of iterations to perform `max_iter` or whether to track individual errors in runs `track_error` can also be set.
+First create an instance of the `wNMF` model by setting the number of components.
+
+Other parameters can be set too, such as the loss function, maximum number of iterations, and whether or not to track the decreasing error over every single run.
 ```python
-import numpy as np
-from wNMF import wNMF
-
 ## Mock data, a 100x100 data matrix, reduce to 25 dimensions
 n=100
 features = 100
@@ -50,16 +50,22 @@ model = wNMF(n_components=25,
             beta_loss='kullback-leibler',
             max_iter=1000,
             track_error=True)
+```
 
+Then, fit the model to the data using the instance methods `wNMF().fit` or `wNMF().fit_transform`.
+```python
 fit = model.fit(X=X,W=W,n_run=5)
 ```
 
-After the fit is complete, explore the fit quality by examining the decomposed matrices and / or overall error. 
+After the fit is complete, explore the fit quality by examining the decomposed matrices and / or overall error.
 ```python
-print(fit.err)
-print(fit.V)
-print(fit.U)
-print(fit.err_all)
+## Get the best solutions
+lowest_error = fit.err)
+best_V = fit.V
+best_U = fit.U
+
+## Or look at all the solutions from the 5 runs in this example
+all_Vs = fit.V_all
 ```
 
 ## License
