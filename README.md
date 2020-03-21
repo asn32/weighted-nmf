@@ -60,7 +60,7 @@ fit = model.fit(X=X,W=W,n_run=5)
 After the fit is complete, explore the fit quality by examining the decomposed matrices and / or overall error.
 ```python
 ## Get the best solutions
-lowest_error = fit.err)
+lowest_error = fit.err
 best_V = fit.V
 best_U = fit.U
 
