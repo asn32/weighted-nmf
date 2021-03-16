@@ -12,7 +12,7 @@ More information about the modified multiplicative update algorithim utilized ca
 
 **Useful Links**
 - [Source on Github](https://github.com/asn32/weighted-nmf)
-- [Package on PyPI](https://https://pypi.org/project/wNMF/)
+- [Package on PyPI](https://pypi.org/project/wNMF/)
 
 ## Installation
 This package is available on PyPI and can be installed with `pip`:
