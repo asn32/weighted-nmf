@@ -187,9 +187,11 @@ class wNMF:
     
     '''
 
-    def __init__(self,n_components,init='random',beta_loss='frobenius',
-                 max_iter=1000,tol=1e-4,random_state=12345,
-                 rescale=False,track_error=False,verbose=1):
+    def __init__(self,n_components: int,
+                 init: str='random',beta_loss: str='frobenius',
+                 max_iter: int=1000,tol: float=1e-4,random_state: int=12345,
+                 rescale: bool=False,track_error: bool=False,
+                 verbose: int=1):
         
         ## init variables
         self.n_components=n_components
@@ -290,7 +292,7 @@ class wNMF:
             raise ValueError(f"Verbosity is specified with an it, 0 or 1; got '{self.verbose}', of type {type(self.verbose)}")
         
         
-    def fit(self,X,W,n_run=1):
+    def fit(self,X: np.ndarray,W: np.ndarray,n_run: int = 1):
         '''
         Function to fit a wNMF model to X, given weight matrix W. The fitting procedure utilizes a modified
         multiplicative update algoithim (see reference), and is repeated n_run times. It is recommended to repeat
@@ -442,7 +444,7 @@ class wNMF:
         return self
        
     
-    def fit_transform(self,X,W,n_run=1):
+    def fit_transform(self,X: np.ndarray,W: np.ndarray,n_run: int = 1):
         '''
         Implements the fit_transform functionality from the SKlearn model API. Fits an NMF model to the
         data matrix X, and weight matrix W. Determines the best solution U,V over n_run's. The data-matrix
@@ -474,7 +476,7 @@ class wNMF:
         
         return f.coefficients_
             
-    def weighted_euclidean(self,A,U,V,W):
+    def weighted_euclidean(self,A: np.ndarray,U: np.ndarray,V: np.ndarray,W: np.ndarray):
         '''
         Function to perform minimization of the Frobenius / Euclidean norm in the
         weighted-NMF case. 
@@ -536,7 +538,7 @@ class wNMF:
         err = self.calculate_reconstruction_error(A,U,V,W)
         return U,V,i,err,err_stored                
                     
-    def weighted_kullback_leibler(self,A,U,V,W):
+    def weighted_kullback_leibler(self,A: np.ndarray,U: np.ndarray,V: np.ndarray,W: np.ndarray):
         '''
         Function to perform minimization of the Kullback-Leibler divergence in the
         weighted-NMF case. 
@@ -598,7 +600,7 @@ class wNMF:
         err = self.calculate_reconstruction_error(A,U,V,W)
         return U,V,i,err,err_stored
     
-    def coerce(self,matrix):
+    def coerce(self,matrix: np.ndarray):
         '''
         Function to coerce a matrix like object to a numpy.ndarray or return the array 
         if it is already a numpy array. Used for converting X, W to suitable matrices. 
@@ -627,7 +629,7 @@ class wNMF:
         return matrix
             
             
-    def _check_x_w(self,X,W):
+    def _check_x_w(self,X: np.ndarray,W: np.ndarray):
         '''
         Function to check the whether supplied X and W are suitable for NMF
         
@@ -679,7 +681,7 @@ class wNMF:
         rng = np.random.RandomState(self.random_state)
         return rng
     
-    def initialize_u_v(self,random_number_generator,n_features,n_samples,mean):
+    def initialize_u_v(self,random_number_generator: np.random.mtrand.RandomState,n_features: int,n_samples: int,mean: float):
         '''
         Function to randomly initialize U and V. U and V are initialized randomly but scaled to the mean
         of X divided by n_components. 
@@ -724,7 +726,7 @@ class wNMF:
                     
         return U,V
 
-    def calculate_reconstruction_error(self,X,U,V,W):
+    def calculate_reconstruction_error(self,X: np.ndarray,U: np.ndarray,V: np.ndarray,W: np.ndarray):
         '''
         Function to calculate the reconstruction error of U,V to X, given W. The function to estimate the
         error is based on the selected loss function, beta_loss
