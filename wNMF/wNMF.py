@@ -75,7 +75,7 @@ class wNMF:
         added with different weights to yield a sample from X (columns).
 
     V : numpy.ndarray, shape (n_components, n_samples)
-        The coefficent matrix for the reduced dimension latent space. Columns of V are the reduced representation of
+        The coefficient matrix for the reduced dimension latent space. Columns of V are the reduced representation of
         each sample in X, decomposed into a linear combination of the basis vectors in U. Samples in X can be 'reconstructed'
         by multiplying a column of U by V. 
     
@@ -95,7 +95,7 @@ class wNMF:
         |    A tuple of length n_runs, with each entry containing a matrix U from a single run.
           
           
-        V : self.coefficents_
+        V : self.coefficients_
         |    The matrix V from the best  run, with dimensions (n_features, n_components)
         |   
         | : self.coefficients_all_
@@ -151,10 +151,10 @@ class wNMF:
         requires: X,W,n_run
         returns: self - the wNMF object with access to all the return variables listed above
     
-    fit_transfrom(X,W,n_run,...):
+    fit_transform(X,W,n_run,...):
         description: Fits an NMF model for the data X, weight matrix W, and returns the coefficient matrix V.
         requires: X,W,n_run
-        returns: self.coefficents_  - specifically the best version of V (lowest self.err) identified in n_run's
+        returns: self.coefficients_  - specifically the best version of V (lowest self.err) identified in n_run's
         
     The other two methods, transform, and inverse transform do not make sense in the context of wNMF, as the
     NMF model is fit with a specific weight matrix, and transforming the data with another weight matrix would not
@@ -168,7 +168,7 @@ class wNMF:
     >>> from weighted-nmf import wNMF
     >>> model = wNMF(n_components=3).fit(X,W,n_run=1)
     >>> V = model.V
-    >>> V = model.coefficents_
+    >>> V = model.coefficients_
     >>> U = model.U
     >>> U = model.components_
     >>> iterations_to_convergence = model.n_iters_
@@ -211,7 +211,7 @@ class wNMF:
         self.components_all_=tuple()
         self.U_all = tuple()
         
-        ## Coefficents / V
+        ## coefficients / V
         self.coefficients_=None
         self.V = None
         self.coefficients_all_=tuple()
@@ -325,7 +325,7 @@ class wNMF:
         
         SKLearn response API variables:
             self.components_, 
-            self.coefficents_, 
+            self.coefficients_, 
             self.n_iters_, 
             self.reconst_err_
         
@@ -337,7 +337,7 @@ class wNMF:
             
         And lists containing all values for all runs
             self.components_all_  / self.U_all
-            self.coefficents_all_ / self.V_all
+            self.coefficients_all_ / self.V_all
             self.n_iters_all_     / self.n_iters_all
             self.reconst_err_all_ / self.err_all
             
@@ -442,11 +442,11 @@ class wNMF:
         return self
        
     
-    def fit_transfrom(self,X,W,n_run=1):
+    def fit_transform(self,X,W,n_run=1):
         '''
         Implements the fit_transform functionality from the SKlearn model API. Fits an NMF model to the
         data matrix X, and weight matrix W. Determines the best solution U,V over n_run's. The data-matrix
-        is then "transformed" into its latent space coefficents given by the matrix V, or coefficents_. 
+        is then "transformed" into its latent space coefficients given by the matrix V, or coefficients_. 
         
         Params:
         ------
@@ -466,7 +466,7 @@ class wNMF:
         
         Returns:
         ------
-        f.coefficents : numpy.ndarray
+        f.coefficients : numpy.ndarray
             The best fit matrix V, or coefficients_ in SKlearn API language 
         
         '''
@@ -619,7 +619,7 @@ class wNMF:
         '''
         
         ## test if object is a numpy.ndarray / ndarray
-        if str(type(matrix))!="<class 'numpy.ndarray'>":
+        if not isinstance(matrix,np.ndarray):
             matrix = np.array(matrix)
         
         ## Convert 0 entries to epsmin to prevent underflow
