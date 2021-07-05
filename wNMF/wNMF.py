@@ -290,8 +290,7 @@ class wNMF:
         ## check verbose is int 
         if self.verbose !=0 and self.verbose !=1:
             raise ValueError(f"Verbosity is specified with an it, 0 or 1; got '{self.verbose}', of type {type(self.verbose)}")
-        
-        
+             
     def fit(self,X: np.ndarray,W: np.ndarray,n_run: int = 1):
         '''
         Function to fit a wNMF model to X, given weight matrix W. The fitting procedure utilizes a modified
@@ -443,7 +442,6 @@ class wNMF:
         ## return entire wNMF object
         return self
        
-    
     def fit_transform(self,X: np.ndarray,W: np.ndarray,n_run: int = 1):
         '''
         Implements the fit_transform functionality from the SKlearn model API. Fits an NMF model to the
@@ -628,7 +626,6 @@ class wNMF:
         matrix[matrix==0]=self.epsmin
         return matrix
             
-            
     def _check_x_w(self,X: np.ndarray,W: np.ndarray):
         '''
         Function to check the whether supplied X and W are suitable for NMF
@@ -662,7 +659,6 @@ class wNMF:
         if  X.shape[1] < self.n_components: 
             raise ValueError("Number of components cannot be greater than the number of samples (columns) in X")
             
-    
     def init_random_generator(self):
         '''
         Function to initialize a numpy random number generator 
