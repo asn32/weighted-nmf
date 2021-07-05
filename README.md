@@ -69,8 +69,8 @@ all_Vs = fit.V_all
 ```
 
 ## License
-wnmf is MIT-licensed
+wNMF is MIT-licensed
 
 ## Disclaimer
-`wnmf` is provided with no guarantees
+`wNMF` is provided with no guarantees
 
