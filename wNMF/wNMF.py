@@ -272,7 +272,7 @@ class wNMF:
             raise ValueError(f"Number of iterations must be a positive integer greater than zero; got '{self.max_iter}', of type {type(self.max_iter)}")
         
         ## check tol is numeric > 0
-        if not isinstance(self.tol,float) or self.tol <=0:
+        if not isinstance(self.tol,float) or self.tol <0:
             raise ValueError(f"Error convergence criteria must be a positive float greater than zero; got '{self.tol}', of type {type(self.tol)}")
         
         ## check random_state is int > 0
@@ -516,13 +516,24 @@ class wNMF:
         '''
         epsmin = self.epsmin
         err_stored = np.zeros(self.max_iter)
+        # Error values for checking convergence
+        init_err = self.calculate_reconstruction_error(A, U, V, W)
+        prev_err = init_err
         ## Begin iterations until max_iter
         for i in range(0,self.max_iter):
             ## Every 10 iterations conver zeroes to epsmin to prevent divide by zero error
             if i % 10 == 0:
                 V[V==0]=epsmin
-                U[U==0]=epsmin                    
-            
+                U[U==0]=epsmin
+
+            ## Adopt sklearn approach to checking convegrence
+            if self.tol > 0 and i % 10 == 0 and i > 0:
+                curr_err = self.calculate_reconstruction_error(A, U, V, W)
+                if (prev_err - curr_err) / init_err < self.tol:
+                    print(f'|--- Convergence reached at iteration {i}')
+                    break
+                prev_err = curr_err
+
             ## If enabled, track errors using the Euclidean Norm loss function
             if self.track_error:
                 err_stored[i] = self.calculate_reconstruction_error(A,U,V,W)
@@ -579,16 +590,26 @@ class wNMF:
         epsmin = self.epsmin
         err_stored = np.zeros(self.max_iter) 
         ## Begin iterations until max_iter
+        init_err = self.calculate_reconstruction_error(A,U,V,W)
+        prev_err = init_err
         for i in range(0,self.max_iter):
             ## Every 10 iterations conver zeroes to epsmin to prevent divide by zero error
             if i % 10 == 0:
                 V[V==0]=epsmin
                 U[U==0]=epsmin
-            
+
+            ## Adopt sklearn approach to checking convegrence
+            if self.tol > 0 and i % 10 == 0 and i > 0:
+                curr_err = self.calculate_reconstruction_error(A,U,V,W)
+                if (prev_err - curr_err) / init_err < self.tol:
+                    print(f'|--- Convergence reached at iteration {i}')
+                    break
+                prev_err = curr_err
+
             ## If enabled, track errors using KL-divergence loss function
             if self.track_error:
                 err_stored[i] = self.calculate_reconstruction_error(A,U,V,W)
-            
+
             ## Update V
             V = ((V)/(U.T@W))*(U.T@((W*A)/(U@V)))
             ## Update U
